@@ -14,12 +14,15 @@ public class CheatActivity extends Activity {
 
     public static final String EXTRA_ANSWER_IS_TRUE = "com.app.taylor.geoquiz.answer_is_true";
     public static final String EXTRA_ANSWER_SHOWN = "com.app.taylor.geoquiz.answer_shown";
+    public static final String HAS_CHEATED = "has_cheated";
 
     private boolean mAnswerIsTrue;
+    private boolean mAnswerIsShown;
     private TextView mAnswerTextView;
     private Button mShowAnswerButton;
 
     private void setAnswerShownResult(boolean isAnswerShown){
+        mAnswerIsShown = isAnswerShown;
         Intent data = new Intent();
         data.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);
         setResult(RESULT_OK, data);
@@ -30,7 +33,17 @@ public class CheatActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
 
-        setAnswerShownResult(false);
+        if (savedInstanceState != null){
+            mAnswerIsShown = savedInstanceState.getBoolean(HAS_CHEATED, false);
+        }
+
+        if (mAnswerIsShown) {
+            // User has cheated
+            setAnswerShownResult(true);
+        } else {
+            // User has not cheated
+            setAnswerShownResult(false);
+        }
 
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
 
@@ -50,5 +63,9 @@ public class CheatActivity extends Activity {
         });
     }
 
-
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putBoolean(HAS_CHEATED, mAnswerIsShown);
+    }
 }
