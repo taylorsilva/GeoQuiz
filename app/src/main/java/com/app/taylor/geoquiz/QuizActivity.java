@@ -26,11 +26,11 @@ public class QuizActivity extends ActionBarActivity {
     private boolean mIsCheater;
 
     private TrueFalse[] mQuestionBank = new TrueFalse[] {
-            new TrueFalse(R.string.question_africa, false),
-            new TrueFalse(R.string.question_oceans, true),
-            new TrueFalse(R.string.question_mideast, false),
-            new TrueFalse(R.string.question_americas, true),
-            new TrueFalse(R.string.question_asia, true)
+            new TrueFalse(R.string.question_africa, false, false),
+            new TrueFalse(R.string.question_oceans, true, false),
+            new TrueFalse(R.string.question_mideast, false, false),
+            new TrueFalse(R.string.question_americas, true, false),
+            new TrueFalse(R.string.question_asia, true, false)
     };
 
     private int mCurrentIndex = 0;
@@ -39,6 +39,8 @@ public class QuizActivity extends ActionBarActivity {
         //Log.d(TAG, "update question to question #" + mCurrentIndex, new Exception());
         int question = mQuestionBank[mCurrentIndex].getQuestion();
         mQuestionTextView.setText(question);
+        // Check if user has cheated on this question before
+        mIsCheater = mQuestionBank[mCurrentIndex].isHasCheated();
     }
 
     @Override
@@ -47,6 +49,7 @@ public class QuizActivity extends ActionBarActivity {
             return;
         } else {
             mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+            mQuestionBank[mCurrentIndex].setHasCheated(mIsCheater);
         }
     }
 

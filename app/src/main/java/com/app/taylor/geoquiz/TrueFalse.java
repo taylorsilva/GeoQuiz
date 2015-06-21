@@ -6,10 +6,13 @@ package com.app.taylor.geoquiz;
 public class TrueFalse {
     private int mQuestion;
     private boolean mTrueQuestion;
+    private boolean mHasCheated;
 
-    public TrueFalse(int question, boolean trueQuestion) {
+        public TrueFalse(int question, boolean trueQuestion, boolean hasCheated) {
         mQuestion = question;
         mTrueQuestion = trueQuestion;
+        mHasCheated = hasCheated;
+
     }
 
     public int getQuestion() {
@@ -27,4 +30,13 @@ public class TrueFalse {
     public boolean isTrueQuestion() {
         return mTrueQuestion;
     }
+
+    public boolean isHasCheated() {
+        return mHasCheated;
+    }
+
+    public void setHasCheated(boolean HasCheated) {
+        this.mHasCheated = HasCheated;
+    }
+
 }
