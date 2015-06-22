@@ -81,7 +81,6 @@ public class QuizActivity extends ActionBarActivity {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
             mIsCheater = savedInstanceState.getBoolean(IS_CHEATER, false);
             mQuestionBank = (TrueFalse[])savedInstanceState.getParcelableArray(QUESTION_BANK);
-            //mQuestionBank[mCurrentIndex].setHasCheated(mIsCheater);
         }
 
         mQuestionTextView = (TextView)findViewById(R.id.question_text_view);

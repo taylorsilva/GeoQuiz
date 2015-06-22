@@ -14,8 +14,10 @@ public class TrueFalse implements Parcelable{
     // Parcelable boilerplate
     protected TrueFalse(Parcel in) {
         mQuestion = in.readInt();
-        mTrueQuestion = in.readInt() != 0;
-        mHasCheated = in.readInt() != 0;
+        boolean[] boolArray =  new boolean[2];
+        in.readBooleanArray(boolArray);
+        mTrueQuestion = boolArray[0];
+        mHasCheated = boolArray[1];
     }
 
     @Override
@@ -26,8 +28,7 @@ public class TrueFalse implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mQuestion);
-        dest.writeInt(mTrueQuestion ? 1 : 0);
-        dest.writeInt(mHasCheated ? 1 : 0);
+        dest.writeBooleanArray(new boolean[]{mTrueQuestion, mHasCheated});
     }
 
     public static final Parcelable.Creator<TrueFalse> CREATOR = new Parcelable.Creator<TrueFalse>() {
